@@ -19,3 +19,28 @@ library(tidyr)
 lobster_abundance <- read_csv("data/Lobster_Abundance_All_Years_20220829.csv")
 ```
 
+12.2 Question 1
+
+```{r}
+lobster_abundance <- lobster_abundance %>% 
+    mutate(SIZE_MM = na_if(SIZE_MM, -99999))
+head(lobster_abundance)
+```
+
+
+12.3 Question 2
+
+```{r}
+not_napl <- lobster_abundance %>% 
+    filter(SITE != "NAPL")
+head(lobster_abundance)
+```
+
+12.3 Question 3
+
+```{r}
+aque_70mm <- lobster_abundance %>% 
+    filter(SITE == "AQUE" & SIZE_MM >= 70)
+head(lobster_abundance)
+```
+
