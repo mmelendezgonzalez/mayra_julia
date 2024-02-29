@@ -11,6 +11,7 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+library(janitor)
 ```
 
 ```{r}
@@ -24,7 +25,28 @@ glimpse(lobster_traps)
 
 ```{r}
 lobster_traps_clean <- lobster_traps %>% 
-  mutate(TRAPS = na_if(-99999, NA))
-unique(lobster_traps_clean)
+  clean_names() %>% 
+  mutate(traps = na_if(traps, -99999))
+unique(lobster_traps_clean$traps)
+colnames(lobster_traps_clean)
 ```
+
+## Filter practice 
+
+Filter out anything from the NAPL site (Naples Reef)
+
+```{r}
+lobster_no_napl <- lobster_traps_clean %>% 
+  filter(site != "NAPL")
+unique(lobster_no_napl$site)
+```
+
+```{r}
+lobster_carp <- lobster_traps_clean %>% 
+  filter(site == "CARP" & traps > 20)
+head(lobster_carp)
+```
+
+## Data Visualization
+
 
