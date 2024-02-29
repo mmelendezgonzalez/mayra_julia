@@ -44,3 +44,54 @@ aque_70mm <- lobster_abundance %>%
 head(lobster_abundance)
 ```
 
+
+## Exercise: Data Visualization
+
+
+Question 7
+
+```{r}
+ggplot(data = lobster_abundance, aes(x = SIZE_MM)) +
+    geom_histogram() +
+    facet_wrap(~SITE)
+head(lobster_abundance)
+```
+
+
+Question 8
+
+```{r}
+lobsters_summarize <- lobster_abundance %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(COUNT = n())
+head(lobsters_summarize)
+```
+
+Question 8 part 2
+
+```{r}
+# line plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_line(aes(color = SITE)) 
+head(lobsters_summarize)
+
+# line and point plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_point(aes(color = SITE)) +
+  geom_line(aes(color = SITE)) 
+head(lobsters_summarize)
+```
+
+Question 9
+
+```{r}
+# line plot
+ggplot(data = lobsters_summarize, aes(x = YEAR, y = COUNT)) +
+  geom_line(aes(color = SITE))+
+  geom_line(aes(color = SITE))
+head(lobsters_summarize)
+
+ggsave("fig/lobsters_summarize_yearcount.jpg")
+
+```
+
