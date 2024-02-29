@@ -14,7 +14,7 @@ library(tidyr)
 ```
 
 ```{r}
-lobster_traps <- read_csv("data/Lobster_Trap_Counts_All_Years_20210519.csv")
+lobster_traps <- read_csv("../data/Lobster_Trap_Counts_All_Years_20210519.csv")
 ```
 
 ```{r}
@@ -22,4 +22,9 @@ colnames(lobster_traps)
 glimpse(lobster_traps)
 ```
 
+```{r}
+lobster_traps_clean <- lobster_traps %>% 
+  mutate(TRAPS = na_if(-99999, NA))
+unique(lobster_traps_clean)
+```
 
