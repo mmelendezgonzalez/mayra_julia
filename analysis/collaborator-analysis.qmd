@@ -49,4 +49,33 @@ head(lobster_carp)
 
 ## Data Visualization
 
+```{r}
+lobster_traps_clean %>% 
+  ggplot() +
+    geom_histogram(aes(x = traps)) + 
+    facet_wrap(~ year)
+
+```
+
+```{r}
+lobster_traps_clean %>% 
+  summarize(total_traps = sum(traps, na.rm = TRUE),
+            .by = c(site, year)) %>% 
+  ggplot() +
+    geom_line(aes(x = year, y = total_traps, color = site)) +
+    geom_point(aes(x = year, y = total_traps, color = site)) 
+```
+```{r}
+lobster_traps_clean %>% 
+  filter(year %in% c(2019:2021)) %>% 
+  mutate(fishing_pressure = if_else(traps >= 8,
+                                    "high",
+                                    "low")) %>% 
+  summarize(count = n(),
+            .by = c(site, fishing_pressure)) %>% 
+  drop_na() %>% 
+  ggplot() + 
+    geom_col(aes(x = site, y = count, fill = fishing_pressure))
+
+```
 
